@@ -1,6 +1,14 @@
 import React, { useState, useEffect } from 'react'
+import styled from 'styled-components'
+import { PokemonCard } from 'components/PokemonCard'
 
 import { sortUp } from 'utils/utils'
+
+const Main = styled.main`
+  display:flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+`
 
 export const Pokemons = () => {
   const [pokemons, setPokemons] = useState([])
@@ -12,19 +20,12 @@ export const Pokemons = () => {
       })
   }, [])
 
-  const imagesName = (number) => {
-    if (number < 10) {
-      return `/img/thumbnails/00${number}.png`
-    } else if (number < 100) {
-      return `/img/thumbnails/0${number}.png`
-    } else {
-      return `/img/thumbnails/${number}.png`
-    }
-  }
-
   return (
-    <div>
-      {pokemons.map((e) => (<div><img src={imagesName(e.pokemonNo)} alt={e.name} />{e.pokemonNo}-{e.name}</div>))}
-    </div>
+    <Main>
+      {pokemons.map((e) => (
+        <PokemonCard name={e.name} number={e.pokemonNo} key={e.pokemonNo} />
+      ))}
+    </Main>
   )
 }
+
